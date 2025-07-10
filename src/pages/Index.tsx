@@ -62,7 +62,7 @@ const Index = () => {
                 Ver Catálogo
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" onClick={() => navigate('/configurar-solucion')}>
                 Configurar Solución
               </Button>
             </div>
@@ -118,10 +118,10 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Button className="mt-8 btn-primary">
-                Conocer Más
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button className="mt-8 btn-primary" onClick={() => navigate('/configurar-solucion')}>
+                  Configurar Solución
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
@@ -171,11 +171,11 @@ const Index = () => {
                 diseñados específicamente para diferentes tipos de negocio.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="btn-primary">
+                <Button size="lg" className="btn-primary" onClick={() => navigate('/configurar-solucion')}>
                   Configurar Solución
                 </Button>
-                <Button size="lg" variant="outline">
-                  Ver Bundles
+                <Button size="lg" variant="outline" onClick={() => navigate('/catalogo')}>
+                  Ver Catálogo
                 </Button>
               </div>
             </CardContent>

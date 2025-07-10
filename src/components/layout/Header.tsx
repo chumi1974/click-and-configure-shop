@@ -11,11 +11,12 @@ const Header = () => {
 
   const navItems = [
     { name: "Inicio", href: "/" },
+    { name: "Catálogo", href: "/catalogo" },
+    { name: "Configurar", href: "/configurar-solucion" },
     { name: "Comunicaciones", href: "/comunicaciones" },
     { name: "Conectividad", href: "/conectividad" },
     { name: "Ciberseguridad", href: "/ciberseguridad" },
-    { name: "Cloud", href: "/cloud" },
-    { name: "Bundles", href: "/bundles" }
+    { name: "Cloud", href: "/cloud" }
   ];
 
   return (

@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import UserProfile from "./pages/UserProfile";
+import ConfigureSolution from "./pages/ConfigureSolution";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/login" element={<Auth />} />
               <Route path="/perfil" element={<UserProfile />} />
+              <Route path="/configurar-solucion" element={<ConfigureSolution />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
