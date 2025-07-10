@@ -1,23 +1,82 @@
 import { useState } from 'react';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Eye, Heart, Star } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ShoppingCart, Eye, Heart, Star, Settings, Check, X } from 'lucide-react';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   product: Product;
   viewMode: 'grid' | 'list';
 }
 
+interface ProductConfiguration {
+  storage?: string;
+  memory?: string;
+  bandwidth?: string;
+  users?: number;
+  duration?: string;
+  features?: string[];
+}
+
 const ProductCard = ({ product, viewMode }: ProductCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [showConfiguration, setShowConfiguration] = useState(false);
+  const [productConfig, setProductConfig] = useState<ProductConfiguration>({
+    storage: '256GB',
+    memory: '8GB',
+    bandwidth: '100Mbps',
+    users: 10,
+    duration: '12 meses',
+    features: []
+  });
+  
   const { addItem } = useCart();
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const calculateConfigMultiplier = (config: ProductConfiguration): number => {
+    let multiplier = 1;
+    
+    if (config.storage === '512GB') multiplier += 0.3;
+    if (config.storage === '1TB') multiplier += 0.6;
+    if (config.memory === '16GB') multiplier += 0.25;
+    if (config.memory === '32GB') multiplier += 0.5;
+    if (config.bandwidth === '500Mbps') multiplier += 0.4;
+    if (config.bandwidth === '1Gbps') multiplier += 0.8;
+    if (config.users && config.users > 50) multiplier += 0.2;
+    if (config.duration === '24 meses') multiplier += 0.1;
+    if (config.duration === '36 meses') multiplier += 0.15;
+    
+    return multiplier;
+  };
+
+  const configuredPrice = product.price * calculateConfigMultiplier(productConfig);
 
   const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (showConfiguration) {
+      addItem(product, 1, {
+        configuration: JSON.stringify(productConfig),
+        configuredPrice: configuredPrice.toString()
+      });
+      setShowConfiguration(false);
+      toast({
+        title: "Producto configurado añadido",
+        description: `${product.name} se ha añadido al carrito con tu configuración personalizada`,
+      });
+    } else {
+      setShowConfiguration(true);
+    }
+  };
+
+  const handleQuickAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
     addItem(product);
   };
@@ -114,18 +173,165 @@ const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                   Ver
                 </Button>
                 <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={handleQuickAdd}
+                  disabled={!product.inStock}
+                >
+                  <ShoppingCart className="h-4 w-4 mr-1" />
+                  Rápido
+                </Button>
+                <Button 
                   size="sm"
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
                   className="btn-primary"
                 >
-                  <ShoppingCart className="h-4 w-4 mr-1" />
-                  Añadir
+                  <Settings className="h-4 w-4 mr-1" />
+                  Configurar
                 </Button>
               </div>
             </div>
           </div>
         </div>
+      </Card>
+    );
+  }
+
+  if (showConfiguration) {
+    return (
+      <Card className="product-card">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span className="text-lg">Configurar {product.name}</span>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setShowConfiguration(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Almacenamiento */}
+            <div className="space-y-2">
+              <Label>Almacenamiento</Label>
+              <Select
+                value={productConfig.storage}
+                onValueChange={(value) => setProductConfig(prev => ({...prev, storage: value}))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="256GB">256GB (+€0)</SelectItem>
+                  <SelectItem value="512GB">512GB (+30%)</SelectItem>
+                  <SelectItem value="1TB">1TB (+60%)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Memoria */}
+            <div className="space-y-2">
+              <Label>Memoria RAM</Label>
+              <Select
+                value={productConfig.memory}
+                onValueChange={(value) => setProductConfig(prev => ({...prev, memory: value}))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="8GB">8GB (+€0)</SelectItem>
+                  <SelectItem value="16GB">16GB (+25%)</SelectItem>
+                  <SelectItem value="32GB">32GB (+50%)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Ancho de banda */}
+            <div className="space-y-2">
+              <Label>Ancho de Banda</Label>
+              <Select
+                value={productConfig.bandwidth}
+                onValueChange={(value) => setProductConfig(prev => ({...prev, bandwidth: value}))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="100Mbps">100Mbps (+€0)</SelectItem>
+                  <SelectItem value="500Mbps">500Mbps (+40%)</SelectItem>
+                  <SelectItem value="1Gbps">1Gbps (+80%)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Duración */}
+            <div className="space-y-2">
+              <Label>Duración del Contrato</Label>
+              <Select
+                value={productConfig.duration}
+                onValueChange={(value) => setProductConfig(prev => ({...prev, duration: value}))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="12 meses">12 meses (+€0)</SelectItem>
+                  <SelectItem value="24 meses">24 meses (+10%)</SelectItem>
+                  <SelectItem value="36 meses">36 meses (+15%)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Usuarios */}
+          <div className="space-y-2">
+            <Label>Número de Usuarios: {productConfig.users}</Label>
+            <Slider
+              value={[productConfig.users || 10]}
+              onValueChange={([value]) => setProductConfig(prev => ({...prev, users: value}))}
+              max={200}
+              min={1}
+              step={5}
+              className="w-full"
+            />
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>1 usuario</span>
+              <span>200 usuarios</span>
+            </div>
+          </div>
+
+          {/* Precio configurado */}
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <div className="flex justify-between items-center">
+              <span className="font-medium">Precio configurado:</span>
+              <span className="text-xl font-bold text-price">
+                €{configuredPrice.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="flex gap-2">
+          <Button 
+            variant="outline" 
+            className="flex-1"
+            onClick={() => setShowConfiguration(false)}
+          >
+            Cancelar
+          </Button>
+          <Button 
+            className="flex-1 btn-primary"
+            onClick={handleAddToCart}
+            disabled={!product.inStock}
+          >
+            <Check className="h-4 w-4 mr-2" />
+            Añadir Configurado
+          </Button>
+        </CardFooter>
       </Card>
     );
   }
@@ -213,13 +419,23 @@ const ProductCard = ({ product, viewMode }: ProductCardProps) => {
             Ver
           </Button>
           <Button 
+            variant="outline"
+            size="sm"
+            className="flex-1"
+            onClick={handleQuickAdd}
+            disabled={!product.inStock}
+          >
+            <ShoppingCart className="h-4 w-4 mr-1" />
+            Rápido
+          </Button>
+          <Button 
             size="sm"
             className="flex-1 btn-primary"
             onClick={handleAddToCart}
             disabled={!product.inStock}
           >
-            <ShoppingCart className="h-4 w-4 mr-1" />
-            Añadir
+            <Settings className="h-4 w-4 mr-1" />
+            Config
           </Button>
         </div>
       </CardFooter>
