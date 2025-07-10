@@ -12,6 +12,7 @@ import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import UserProfile from "./pages/UserProfile";
 import ConfigureSolution from "./pages/ConfigureSolution";
+import Comunicaciones from "./pages/Comunicaciones";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/login" element={<Auth />} />
               <Route path="/perfil" element={<UserProfile />} />
               <Route path="/configurar-solucion" element={<ConfigureSolution />} />
+              <Route path="/comunicaciones" element={<Comunicaciones />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
