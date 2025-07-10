@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Cloud, Wifi, MessageSquare, Star, CheckCircle } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
   const features = [
     {
       icon: MessageSquare,
@@ -56,7 +58,7 @@ const Index = () => {
               Todo lo que necesitas para digitalizar tu negocio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" onClick={() => navigate('/catalogo')}>
                 Ver Catálogo
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
