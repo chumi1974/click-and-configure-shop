@@ -62,7 +62,7 @@ const Index = () => {
                 Ver Catálogo
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" onClick={() => navigate('/configurar-solucion')}>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold" onClick={() => navigate('/configurar-solucion')}>
                 Configurar Solución a Medida
               </Button>
             </div>
