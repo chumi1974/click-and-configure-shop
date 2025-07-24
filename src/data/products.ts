@@ -84,6 +84,136 @@ export const products: Product[] = [
     inStock: false,
     isBundle: false,
     tags: ['switch', 'poe', 'gestionado']
+  },
+  {
+    id: '7',
+    name: 'Endpoint Detection & Response (EDR)',
+    description: 'Solución avanzada de detección y respuesta para endpoints con análisis forense y remediación automática.',
+    price: 450,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Endpoint',
+    features: ['Detección comportamental', 'Análisis forense', 'Remediación automática', 'Hunting de amenazas'],
+    inStock: true,
+    isBundle: false,
+    tags: ['endpoint', 'detección', 'respuesta']
+  },
+  {
+    id: '8',
+    name: 'Antivirus Empresarial Centralizado',
+    description: 'Protección antivirus y antimalware centralizadamente gestionada para todos los dispositivos de la empresa.',
+    price: 120,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Endpoint',
+    features: ['Gestión centralizada', 'Actualizaciones automáticas', 'Informes detallados', 'Cuarentena remota'],
+    inStock: true,
+    isBundle: false,
+    tags: ['antivirus', 'centralizado', 'malware']
+  },
+  {
+    id: '9',
+    name: 'Sistema de Backup y Recuperación',
+    description: 'Solución completa de backup automático con cifrado y recuperación rápida ante ransomware.',
+    price: 380,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Backup',
+    features: ['Backup automático', 'Cifrado AES-256', 'Recuperación rápida', 'Protección ransomware'],
+    inStock: true,
+    isBundle: false,
+    tags: ['backup', 'recuperación', 'ransomware']
+  },
+  {
+    id: '10',
+    name: 'Seguridad de Correo Electrónico',
+    description: 'Protección avanzada contra phishing, spam y ataques de email con sandboxing y análisis de enlaces.',
+    price: 250,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Email Security',
+    features: ['Anti-phishing', 'Sandboxing', 'Análisis de URLs', 'Cifrado de emails'],
+    inStock: true,
+    isBundle: false,
+    tags: ['email', 'phishing', 'spam']
+  },
+  {
+    id: '11',
+    name: 'SIEM (Security Information Event Management)',
+    description: 'Plataforma de correlación y análisis de eventos de seguridad en tiempo real con dashboards intuitivos.',
+    price: 680,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Monitoreo',
+    features: ['Correlación eventos', 'Alertas tiempo real', 'Dashboards personalizables', 'Compliance reports'],
+    inStock: true,
+    isBundle: false,
+    tags: ['siem', 'monitoreo', 'eventos']
+  },
+  {
+    id: '12',
+    name: 'Autenticación Multifactor (MFA)',
+    description: 'Sistema de autenticación de doble factor con soporte para tokens, SMS y aplicaciones móviles.',
+    price: 95,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Acceso',
+    features: ['Tokens físicos', 'SMS/Email', 'App móvil', 'Integración SSO'],
+    inStock: true,
+    isBundle: false,
+    tags: ['mfa', 'autenticación', 'acceso']
+  },
+  {
+    id: '13',
+    name: 'Análisis de Vulnerabilidades',
+    description: 'Escáner automatizado de vulnerabilidades con reportes detallados y recomendaciones de remediación.',
+    price: 320,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Análisis',
+    features: ['Escaneo automatizado', 'Base datos CVE', 'Reportes detallados', 'Priorización riesgos'],
+    inStock: true,
+    isBundle: false,
+    tags: ['vulnerabilidades', 'escaneo', 'análisis']
+  },
+  {
+    id: '14',
+    name: 'VPN Empresarial Segura',
+    description: 'Solución VPN escalable con cifrado de grado militar y acceso granular por roles de usuario.',
+    price: 180,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Acceso',
+    features: ['Cifrado militar', 'Acceso por roles', 'Multi-dispositivo', 'Kill switch automático'],
+    inStock: true,
+    isBundle: false,
+    tags: ['vpn', 'acceso', 'cifrado']
+  },
+  {
+    id: '15',
+    name: 'Gestión de Identidades y Accesos (IAM)',
+    description: 'Plataforma completa para gestión de identidades, provisioning automático y control de accesos.',
+    price: 520,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Acceso',
+    features: ['Provisioning automático', 'Single Sign-On', 'Gestión roles', 'Auditoría accesos'],
+    inStock: true,
+    isBundle: false,
+    tags: ['iam', 'identidades', 'sso']
+  },
+  {
+    id: '16',
+    name: 'Threat Intelligence Platform',
+    description: 'Plataforma de inteligencia de amenazas con feeds globales y análisis predictivo de ciberataques.',
+    price: 750,
+    image: '/placeholder.svg',
+    category: 'Ciberseguridad',
+    subcategory: 'Inteligencia',
+    features: ['Feeds globales', 'Análisis predictivo', 'IOCs automatizados', 'Integración SIEM'],
+    inStock: true,
+    isBundle: false,
+    tags: ['threat', 'inteligencia', 'predictivo']
   }
 ];
 
@@ -96,7 +226,7 @@ export const categories = [
 
 export const subcategories = {
   'Comunicaciones': ['VoIP', 'Videoconferencias', 'Colaboración'],
-  'Ciberseguridad': ['Firewall', 'Endpoint', 'Email Security', 'Suite Completa'],
+  'Ciberseguridad': ['Firewall', 'Endpoint', 'Email Security', 'Suite Completa', 'Backup', 'Monitoreo', 'Acceso', 'Análisis', 'Inteligencia'],
   'Conectividad': ['Networking', 'Switches', 'WiFi', 'Routers'],
   'Cloud': ['Infraestructura', 'Servicios', 'Backup', 'Monitoreo']
 };
