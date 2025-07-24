@@ -14,6 +14,7 @@ import UserProfile from "./pages/UserProfile";
 import ConfigureSolution from "./pages/ConfigureSolution";
 import Comunicaciones from "./pages/Comunicaciones";
 import Conectividad from "./pages/Conectividad";
+import Ciberseguridad from "./pages/Ciberseguridad";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/configurar-solucion" element={<ConfigureSolution />} />
               <Route path="/comunicaciones" element={<Comunicaciones />} />
               <Route path="/conectividad" element={<Conectividad />} />
+              <Route path="/ciberseguridad" element={<Ciberseguridad />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
